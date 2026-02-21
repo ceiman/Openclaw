@@ -1,25 +1,60 @@
-# 🫐 Berry - Mi AI Familiar (OpenClaw en Raspberry Pi 5)
+# 🫐 Berry - OpenClaw en Raspberry Pi 5
 
-Este repositorio contiene la configuración completa de mi asistente personal **Berry**, basado en OpenClaw y optimizado para correr en una **Raspberry Pi 5**.
+![Status](https://img.shields.io/badge/Status-Activo-brightgreen)
+![Engine](https://img.shields.io/badge/IA-Gemini_3_Flash-blue)
+![Platform](https://img.shields.io/badge/Platform-Raspberry_Pi_5-red)
 
-## 🚀 Características
-- **Cerebro:** Google Gemini 3 Flash Preview.
-- **Interfaz:** Telegram.
-- **Vibe:** Relajado, pero serio cuando hace falta (y con chistes malos incluidos).
+Repositorio para desplegar **OpenClaw** (Berry 🫐) 100% en local usando una **Raspberry Pi 5**, con **Google Gemini** como motor de inteligencia y **Telegram** como interfaz de usuario.
 
-## 🛠️ Requisitos
-- Raspberry Pi 5 (recomendado) o 4.
-- Docker & Docker Compose instalado.
-- Un bot de Telegram (creado vía @BotFather).
+## 🚀 Descripción
+Berry es un "AI Familiar" diseñado para ser útil, relajado y ocasionalmente gracioso. Este proyecto optimiza OpenClaw para funcionar eficientemente en hardware ARM64.
 
-## 🤖 Configuración de Telegram
-1. Habla con [@BotFather](https://t.me/botfather) en Telegram.
-2. Usa `/newbot` y sigue los pasos para obtener tu **TELEGRAM_TOKEN**.
-3. Consigue tu **Chat ID** (puedes usar el bot `@userinfobot`).
+## 🛠️ Requisitos Previos
+- **Hardware:** Raspberry Pi 5 (recomendado) o 4.
+- **Software:** Docker & Docker Compose.
+- **Cuentas:** 
+  - [Google AI Studio](https://aistudio.google.com/) (API Key gratuita).
+  - Bot de Telegram (vía [@BotFather](https://t.me/botfather)).
 
-## 📦 Instalación Rápida
-Clona este repo y ejecuta el script de instalación:
+## 📦 Instalación Paso a Paso
+
+1. **Clonar el repositorio:**
+   ```bash
+   git clone https://github.com/ceiman/Openclaw.git
+   cd Openclaw
+   ```
+
+2. **Ejecutar el script de preparación:**
+   ```bash
+   chmod +x install.sh
+   ./install.sh
+   ```
+
+3. **Configurar variables de entorno:**
+   ```bash
+   cp .env.example .env
+   # Edita .env con tus claves reales
+   nano .env
+   ```
+
+4. **Desplegar con Docker:**
+   ```bash
+   docker compose build --no-cache
+   docker compose up -d
+   ```
+
+## 🤖 Conexión con Telegram (Pairing)
+Al iniciar el bot por primera vez en Telegram enviándole `/start`, te proporcionará un código de vinculación. Para aprobarlo, ejecuta este comando en la terminal de tu Raspberry Pi:
+
 ```bash
-chmod +x setup.sh
-./setup.sh
+docker exec -it openclaw-app npx openclaw pairing approve telegram <TU_CODIGO>
 ```
+
+## ⚠️ Troubleshooting (Solución de problemas)
+
+### Error: "API rate limit reached"
+Este mensaje aparece cuando se supera la cuota gratuita de la API de Google Gemini. 
+- **Solución:** Esperar unos minutos (normalmente 5-10) o generar una nueva API Key en Google AI Studio.
+
+---
+*Desarrollado con ❤️ por Carlos (Berry AI).*
