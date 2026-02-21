@@ -1,0 +1,19 @@
+services:
+  openclaw-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: openclaw-app
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - TZ=Europe/Madrid
+    volumes:
+      - ./data:/home/node/.openclaw
+      - ./config:/app/config
+    networks:
+      - openclaw-net
+
+networks:
+  openclaw-net:
+    driver: bridge
